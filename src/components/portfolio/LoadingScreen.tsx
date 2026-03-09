@@ -23,13 +23,20 @@ const logs = [
 ];
 
 export default function LoadingScreen() {
-    const [show, setShow] = useState(() => {
-        if (typeof window === "undefined") return false;
-        return !localStorage.getItem("tg_visited");
-    });
+    const [show, setShow] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const [progress, setProgress] = useState(0);
     const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
     const [snippet, setSnippet] = useState(0);
+
+    // Check localStorage after mount to avoid hydration mismatch
+    useEffect(() => {
+        const visited = localStorage.getItem("tg_visited");
+        if (!visited) {
+            setShow(true);
+        }
+        setMounted(true);
+    }, []);
 
     useEffect(() => {
         if (!show) return;
@@ -58,6 +65,8 @@ export default function LoadingScreen() {
             return () => clearTimeout(timer);
         }
     }, [progress]);
+
+    if (!mounted) return null;
 
     return (
         <AnimatePresence>
