@@ -194,19 +194,10 @@ export default function TopBar() {
                                 whileHover={{ scale: 1.03 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={() => setShowLogin(true)}
-                                className="flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-[#2a2a2a] bg-[#111111] hover:bg-[#1a1a1a] text-[10px] font-bold tracking-wider text-[#a3a3a3] hover:text-[#e5e5e5] uppercase transition-all cursor-pointer"
+                                className="flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-[#22c55e]/30 bg-[#22c55e]/10 hover:bg-[#22c55e]/20 text-[10px] font-bold tracking-wider text-[#22c55e] uppercase transition-all cursor-pointer"
                             >
                                 <LogIn size={10} />
-                                <span className="hidden sm:inline">LOGIN</span>
-                            </motion.button>
-                            <motion.button
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.97 }}
-                                onClick={handleGuestPlay}
-                                className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-[#525252]/30 bg-[#525252]/5 hover:bg-[#525252]/10 text-[10px] font-bold tracking-wider text-[#737373] hover:text-[#a3a3a3] uppercase transition-all cursor-pointer"
-                            >
-                                <UserX size={10} />
-                                GUEST
+                                SIGN IN
                             </motion.button>
                         </div>
                     )}

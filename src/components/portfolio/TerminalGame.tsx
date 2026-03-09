@@ -298,22 +298,22 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
     return (
         <>
             <main className="pt-[49px] lg:ml-[160px] xl:mr-[190px] min-h-screen">
-                <div className="h-[calc(100vh-49px)] flex flex-col">
+                <div className="md:h-[calc(100vh-49px)] flex flex-col">
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e1e1e] bg-[#0a0a0a]">
-                        <div className="flex items-center gap-3">
-                            <Link href="/games" className="text-[#525252] hover:text-[#e5e5e5] transition-colors"><ArrowLeft size={14} /></Link>
-                            <Terminal size={14} className="text-[#22c55e]" />
-                            <span className="text-[11px] font-bold tracking-[0.15em] text-[#e5e5e5] uppercase">{gameTitle}</span>
+                    <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 border-b border-[#1e1e1e] bg-[#0a0a0a] gap-2 flex-wrap">
+                        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                            <Link href="/games" className="text-[#525252] hover:text-[#e5e5e5] transition-colors shrink-0"><ArrowLeft size={14} /></Link>
+                            <Terminal size={14} className="text-[#22c55e] shrink-0 hidden sm:block" />
+                            <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.15em] text-[#e5e5e5] uppercase truncate">{gameTitle}</span>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <span className="text-[10px] font-mono tracking-wider text-[#525252] uppercase">LEVEL {currentLevel + 1}/{currentLevels.length}</span>
-                            <span className={`text-[10px] font-mono tracking-wider uppercase ${activeDiffTab.color}`}>SCORE: {score}</span>
+                        <div className="flex items-center gap-3 sm:gap-4">
+                            <span className="text-[9px] sm:text-[10px] font-mono tracking-wider text-[#525252] uppercase">LVL {currentLevel + 1}/{currentLevels.length}</span>
+                            <span className={`text-[9px] sm:text-[10px] font-mono tracking-wider uppercase ${activeDiffTab.color}`}>SCORE: {score}</span>
                         </div>
                     </div>
 
                     {/* Difficulty Tabs */}
-                    <div className="flex items-center gap-2 px-4 py-2 border-b border-[#1e1e1e] bg-[#0d0d0d]">
+                    <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 border-b border-[#1e1e1e] bg-[#0d0d0d] overflow-x-auto">
                         {diffTabs.map((tab) => (
                             <motion.button key={tab.key} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                                 onClick={() => {
@@ -346,11 +346,11 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
                     </div>
 
                     {/* Main Game Area */}
-                    <div className="flex-1 grid grid-cols-1 md:grid-cols-2 min-h-0">
+                    <div className="flex-1 flex flex-col md:grid md:grid-cols-2 min-h-0">
                         {/* Editor */}
-                        <div className="flex flex-col border-r border-[#1e1e1e] min-h-0">
+                        <div className="flex flex-col border-b md:border-b-0 md:border-r border-[#1e1e1e] min-h-[280px] md:min-h-0">
                             <div className="flex items-center justify-between px-3 py-2 border-b border-[#1e1e1e] bg-[#0d0d0d]">
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-2 sm:gap-3">
                                     <span className="text-[9px] font-mono tracking-widest text-[#525252] uppercase">EDITOR</span>
                                     <LanguageSelector value={language} onChange={handleLanguageChange} disabled={gameSlug === "bugblaster"} />
                                 </div>
@@ -360,16 +360,16 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
                                     <span className="w-2 h-2 rounded-full bg-[#22c55e]/60" />
                                 </div>
                             </div>
-                            <div className="flex-1 relative min-h-0">
+                            <div className="flex-1 relative min-h-[200px] md:min-h-0">
                                 <textarea value={code} onChange={(e) => setCode(e.target.value)} onKeyDown={handleKeyDown} spellCheck={false}
-                                    className="absolute inset-0 w-full h-full bg-[#0a0a0a] text-[#e5e5e5] font-mono text-[13px] leading-[1.6] p-4 resize-none outline-none border-none selection:bg-[#22c55e]/20 overflow-auto"
+                                    className="absolute inset-0 w-full h-full bg-[#0a0a0a] text-[#e5e5e5] font-mono text-[12px] sm:text-[13px] leading-[1.6] p-3 sm:p-4 resize-none outline-none border-none selection:bg-[#22c55e]/20 overflow-auto"
                                     style={{ tabSize: 2 }} />
                             </div>
                             {level && (
                                 <HintPanel hints={level.hints} solution={level.solution} isOpen={hintOpen} onToggle={() => setHintOpen(!hintOpen)}
                                     difficulty={difficulty} onRevealSolution={handleRevealSolution} />
                             )}
-                            <div className="flex items-center gap-2 px-3 py-2 border-t border-[#1e1e1e] bg-[#0d0d0d]">
+                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 border-t border-[#1e1e1e] bg-[#0d0d0d] flex-wrap">
                                 <motion.button whileHover={{ scale: 1.03, boxShadow: "0 0 15px rgba(34, 197, 94, 0.3)" }} whileTap={{ scale: 0.97 }}
                                     onClick={runCode} disabled={isRunning}
                                     className="flex items-center gap-1.5 px-3 py-1.5 rounded border border-[#22c55e]/40 bg-[#22c55e]/10 hover:bg-[#22c55e]/20 text-[10px] font-bold tracking-wider text-[#22c55e] uppercase transition-all disabled:opacity-50 cursor-pointer">
@@ -400,7 +400,7 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
                         </div>
 
                         {/* Terminal Output */}
-                        <div className="flex flex-col min-h-0">
+                        <div className="flex flex-col min-h-[200px] md:min-h-0">
                             <div className="flex items-center justify-between px-3 py-2 border-b border-[#1e1e1e] bg-[#0d0d0d]">
                                 <span className="text-[9px] font-mono tracking-widest text-[#525252] uppercase">TERMINAL OUTPUT</span>
                                 <span className="text-[9px] font-mono tracking-widest text-[#525252]">⌘+ENTER TO RUN</span>
