@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { getGamesPlayedToday } from "@/lib/storage";
 import { createPresenceChannel, supabase } from "@/lib/supabase";
 import { useAuth } from "@/lib/auth-context";
-import CreditsDisplay from "./CreditsDisplay";
+
 import type { PresenceState } from "@/lib/supabase";
 
 const highlights = [
@@ -134,8 +134,6 @@ export default function RightSidebar() {
                 )}
             </motion.div>
 
-            {/* Credits */}
-            <CreditsDisplay />
 
             {/* Highlights */}
             <motion.div

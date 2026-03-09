@@ -23,7 +23,10 @@ const logs = [
 ];
 
 export default function LoadingScreen() {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(() => {
+        if (typeof window === "undefined") return false;
+        return !sessionStorage.getItem("tg_loaded");
+    });
     const [progress, setProgress] = useState(0);
     const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
     const [snippet, setSnippet] = useState(0);
@@ -50,6 +53,7 @@ export default function LoadingScreen() {
 
     useEffect(() => {
         if (progress >= 100) {
+            sessionStorage.setItem("tg_loaded", "1");
             const timer = setTimeout(() => setShow(false), 400);
             return () => clearTimeout(timer);
         }
