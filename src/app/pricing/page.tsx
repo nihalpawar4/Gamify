@@ -21,9 +21,9 @@ const plans = [
         bg: "bg-[#22c55e]/5",
         icon: <Coins size={20} className="text-[#22c55e]" />,
         features: [
-            "100 free credits",
             "All beginner & intermediate games",
             "Detailed hints (unlimited)",
+            "Free solution reveals",
             "Basic leaderboard access",
             "Community support",
         ],
@@ -41,7 +41,7 @@ const plans = [
         icon: <Crown size={20} className="text-[#eab308]" />,
         popular: true,
         features: [
-            "Unlimited credits",
+            "Unlimited solution reveals",
             "All game difficulties (incl. Pro)",
             "Full solution reveals",
             "Priority support",
@@ -205,8 +205,8 @@ export default function PricingPage() {
                     <div className="space-y-3">
                         {[
                             {
-                                q: "What are credits used for?",
-                                a: "Credits are used to reveal full solutions for Pro-level challenges. Hints are always free. Free users start with 100 credits.",
+                                q: "Are solutions free?",
+                                a: "Yes! All hints and solutions are completely free. Pro plan unlocks additional features like custom themes and priority support.",
                             },
                             {
                                 q: "Can I cancel anytime?",

@@ -24,7 +24,7 @@ export default function LoginModal() {
         if (result.error) {
             setError(result.error);
         } else {
-            setSuccess(tab === "signup" ? "Account created! 100 free credits added." : "Logged in successfully!");
+            setSuccess(tab === "signup" ? "Account created! Welcome aboard." : "Logged in successfully!");
             setTimeout(() => { setShowLogin(false); setLoginMessage(""); setEmail(""); setPassword(""); setSuccess(""); }, 1200);
         }
         setLoading(false);
@@ -36,7 +36,7 @@ export default function LoginModal() {
         const result = await signInAsGuest();
         if (result.error) { setError(result.error); }
         else {
-            setSuccess("Playing as Guest! (100 credits, Beginner only)");
+            setSuccess("Playing as Guest! (Beginner levels only)");
             setTimeout(() => { setShowLogin(false); setLoginMessage(""); setSuccess(""); }, 1200);
         }
         setGuestLoading(false);
@@ -150,14 +150,14 @@ export default function LoginModal() {
 
                             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={loading}
                                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-md border border-[#2a2a2a] bg-[#0a0a0a] hover:bg-[#1a1a1a] text-[11px] font-bold tracking-wider text-[#a3a3a3] uppercase transition-all disabled:opacity-50 cursor-pointer">
-                                {loading ? <Loader2 size={12} className="animate-spin" /> : tab === "signup" ? "CREATE ACCOUNT (100 FREE CREDITS)" : "SIGN IN WITH EMAIL"}
+                                {loading ? <Loader2 size={12} className="animate-spin" /> : tab === "signup" ? "CREATE FREE ACCOUNT" : "SIGN IN WITH EMAIL"}
                             </motion.button>
                         </form>
 
                         {tab === "signup" && (
                             <div className="px-5 pb-4 border-t border-[#1e1e1e] pt-3">
                                 <p className="text-[9px] font-mono text-[#525252] text-center">
-                                    ✓ 100 FREE CREDITS &nbsp;•&nbsp; ✓ ALL GAMES FREE &nbsp;•&nbsp; ✓ NO CREDIT CARD
+                                    ✓ ALL GAMES FREE &nbsp;•&nbsp; ✓ UNLIMITED HINTS &nbsp;•&nbsp; ✓ NO CREDIT CARD
                                 </p>
                             </div>
                         )}

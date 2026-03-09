@@ -77,16 +77,6 @@ export async function createUserProfile(profile: Partial<DBUserProfile> & { id: 
     return { data, error };
 }
 
-export async function deductCredit(userId: string, currentCredits: number) {
-    if (currentCredits <= 0) return { success: false, credits: 0 };
-    const newCredits = currentCredits - 1;
-    const { error } = await supabase
-        .from("user_profiles")
-        .update({ credits: newCredits })
-        .eq("id", userId);
-    return { success: !error, credits: newCredits };
-}
-
 export async function updateSubscription(userId: string, tier: "pro" | "ultimate") {
     const { error } = await supabase
         .from("user_profiles")

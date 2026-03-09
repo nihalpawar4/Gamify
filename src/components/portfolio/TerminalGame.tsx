@@ -10,9 +10,8 @@ import Link from "next/link";
 import confetti from "canvas-confetti";
 import { incrementGamesPlayed } from "@/lib/storage";
 import { useAuth } from "@/lib/auth-context";
-import { deductCredit, submitScore, updatePreferredLanguage, markChallengeCompleted, isChallengeCompleted } from "@/lib/supabase";
+import { submitScore, updatePreferredLanguage, markChallengeCompleted, isChallengeCompleted } from "@/lib/supabase";
 import HintPanel from "./HintPanel";
-import SolutionModal from "./SolutionModal";
 import LanguageSelector, { type Language } from "./LanguageSelector";
 import { getCodequestLevels, bugblasterLevels, type Difficulty, type GameLevel } from "@/lib/gameData";
 
@@ -49,7 +48,7 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
     const [gameComplete, setGameComplete] = useState(false);
     const [passedTests, setPassedTests] = useState<boolean[]>([]);
     const [hintOpen, setHintOpen] = useState(false);
-    const [showOutOfCredits, setShowOutOfCredits] = useState(false);
+
     const [completedChallenges, setCompletedChallenges] = useState<Set<string>>(new Set());
     const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -124,16 +123,8 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
 
     const handleRevealSolution = useCallback(async () => {
         if (!user || !profile) { setShowLogin(true); return; }
-        if (difficulty !== "pro") return;
-        if (profile.credits <= 0 && !profile.is_subscribed) { setShowOutOfCredits(true); return; }
-        if (!profile.is_subscribed) {
-            const result = await deductCredit(user.id, profile.credits);
-            if (!result.success) { setShowOutOfCredits(true); return; }
-            await refreshProfile();
-            addLine(`[SYSTEM] 1 credit used. ${result.credits} remaining.`, "hint");
-        }
-        // Note: RUN button still works normally after viewing solution
-    }, [user, profile, difficulty, refreshProfile, setShowLogin, addLine]);
+        // Solutions are now free for everyone
+    }, [user, profile, setShowLogin]);
 
     const handleResults = useCallback(async (allPassed: boolean, results: boolean[]) => {
         setPassedTests(results);
@@ -448,7 +439,7 @@ export default function TerminalGame({ gameSlug, gameTitle, mode }: TerminalGame
                     </div>
                 </div>
             </main>
-            <SolutionModal isOpen={showOutOfCredits} onClose={() => setShowOutOfCredits(false)} />
+
         </>
     );
 }
